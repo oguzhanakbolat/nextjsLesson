@@ -1,8 +1,9 @@
 "use client";
 
 import EyeIcon from "@/constants/icons/eye";
+import EyeNoneIcon from "@/constants/icons/eyeNone";
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { FC, memo, useState } from "react";
 
 type InputProps = {
 	red?: boolean;
@@ -19,6 +20,7 @@ type InputProps = {
 	lg?: boolean;
 	placeholder?: string;
 	security?: boolean;
+	error?: string;
 };
 
 const Input: FC<InputProps> = ({
@@ -36,10 +38,11 @@ const Input: FC<InputProps> = ({
 	placeholder,
 	security,
 	setValue,
+	error,
 }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const classes = classNames(
-		"flex flex-col gap-2 p-4",
+		"flex flex-col gap-2 p-2",
 		{
 			"bg-[red]": red,
 			"bg-[blue]": blue,
@@ -62,8 +65,6 @@ const Input: FC<InputProps> = ({
 		"text-[18px]": lg,
 	});
 
-	console.log("Input:", showPassword);
-
 	return (
 		<label className={classes}>
 			{label && <div className={labelClasses}>{label}</div>}
@@ -77,16 +78,33 @@ const Input: FC<InputProps> = ({
 					onChange={(e) => setValue(e.target.value)}
 				/>
 				{security && (
-					<EyeIcon
-						color="white"
-						size={36}
-						svgClasses="absolute bottom-0 right-2 cursor-pointer"
-						onClick={() => setShowPassword(!showPassword)}
-					/>
+					<>
+						{!showPassword ? (
+							<EyeIcon
+								color="white"
+								size={36}
+								svgClasses="absolute bottom-0 right-2 cursor-pointer h-[36px] w-[36px] flex items-center justify-center"
+								onClick={() => setShowPassword(!showPassword)}
+							/>
+						) : (
+							<EyeNoneIcon
+								color="white"
+								size={24}
+								svgClasses="absolute bottom-0 right-2 cursor-pointer h-[36px] w-[36px] flex items-center justify-center"
+								onClick={() => setShowPassword(!showPassword)}
+							/>
+						)}
+					</>
 				)}
 			</div>
+			{error && <div className="text-red-500 text-[12px]">* {error}</div>}
 		</label>
 	);
 };
 
-export default Input;
+export default memo(Input, (prevProps, nextProps) => {
+	return (
+		prevProps.value === nextProps.value &&
+		prevProps.error === nextProps.error
+	);
+});

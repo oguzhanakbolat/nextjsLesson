@@ -1,29 +1,36 @@
 "use client";
 
-import Input from "@/components/atoms/input";
-import PostCard from "@/components/molecules/postCard";
-import { postType } from "@/constants/types";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import axios from "axios";
-import { useState } from "react";
-
-const title = "Merhaba, Dünya!";
+import { useEffect, useState } from "react";
+import Register from "@/components/organisms/register";
 
 const Home = () => {
-	const [text, setText] = useState<string | number | undefined>("");
+	const [user, setUser] = useState<any>(null);
+	const [loading, setLoading] = useState(false);
+
+	const getUserData = () => {
+		const userData = localStorage.getItem("user");
+		if (userData) {
+			setUser(JSON.parse(userData));
+		}
+		setLoading(true);
+	};
+
+	useEffect(() => {
+		getUserData();
+	}, []);
 
 	return (
 		<>
-			<Input
-				blue
-				containerClass="p-[100px]"
-				value={text}
-				setValue={setText}
-				borderFull
-				label="Kullanıcı Adı"
-				sm
-				placeholder="Kullanıcı adınızı giriniz"
-				security
-			/>
+			{!loading ? (
+				<div>Yükleniyor...</div>
+			) : user ? (
+				<div>{user.username}</div>
+			) : (
+				<Register setUser={setUser} />
+			)}
 		</>
 	);
 };
