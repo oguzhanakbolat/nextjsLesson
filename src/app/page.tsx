@@ -1,8 +1,5 @@
 "use client";
 
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Register from "@/components/organisms/register";
 
