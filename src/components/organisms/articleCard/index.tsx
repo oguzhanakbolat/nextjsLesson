@@ -2,16 +2,10 @@ import React, { FC } from "react";
 import style from "./style.module.css";
 import Link from "next/link";
 import useArticle from "@/store";
+import { articleType } from "@/constants/types/article";
 
-type Props = {
-	title: string;
-	documentId: string;
-};
-
-const ArticleCard: FC<Props> = (item) => {
+const ArticleCard: FC<articleType> = (item) => {
 	const { addArticle, articles } = useArticle();
-
-	console.log(articles);
 
 	return (
 		<div className={style.container}>

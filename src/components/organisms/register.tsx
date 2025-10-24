@@ -4,7 +4,7 @@ import Input from "@/components/atoms/input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { FC } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 type Props = { setUser: (data: any) => void };
 
@@ -52,6 +52,13 @@ const Register: FC<Props> = ({ setUser }) => {
 			}
 		},
 	});
+
+	const [say, setSay] = useState(1);
+
+	useEffect(() => {
+		setSay((s) => s + 1);
+		const a = 5;
+	}, [say]);
 
 	return (
 		<>
