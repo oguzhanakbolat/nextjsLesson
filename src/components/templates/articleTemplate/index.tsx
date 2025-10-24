@@ -63,6 +63,8 @@ const ArticleTemplate = () => {
 								key={item.documentId}
 								title={item.title}
 								documentId={item.documentId}
+								detail={item.detail}
+								author={item.author}
 							/>
 					  ))
 					: null}

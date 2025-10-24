@@ -2,11 +2,12 @@
 
 import ArticleCard from "@/components/organisms/articleCard";
 import Header from "@/components/organisms/header";
+import { userType } from "@/constants/types/user";
 import useArticle from "@/store";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const UserTemplate = () => {
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState<userType>({} as userType);
 	const { articles } = useArticle();
 
 	const getUserData = () => {
@@ -21,8 +22,6 @@ const UserTemplate = () => {
 		getUserData();
 	}, []);
 
-	console.log("---", articles);
-
 	return (
 		<div>
 			<Header
@@ -35,6 +34,8 @@ const UserTemplate = () => {
 						key={item.documentId}
 						title={item.title}
 						documentId={item.documentId}
+						detail=""
+						author=""
 					/>
 				))}
 			</div>
