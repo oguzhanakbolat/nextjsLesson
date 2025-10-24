@@ -37,6 +37,7 @@ export default function RootLayout({
 					}}
 				>
 					<Link href="/products">Products</Link>
+					<Link href="/game">Game</Link>
 
 					<Link href="/articles">Articles</Link>
 
