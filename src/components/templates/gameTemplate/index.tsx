@@ -1,7 +1,12 @@
 import React from "react";
+import Adam from "./adam";
 
 const GameTemplate = () => {
-	return <div>GameTemplate</div>;
+	return (
+		<div>
+			<Adam size={300} color={"red"} />
+		</div>
+	);
 };
 
 export default GameTemplate;
